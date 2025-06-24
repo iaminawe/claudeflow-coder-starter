@@ -13,6 +13,15 @@ Minimal starter template integrating [Coder](https://github.com/coder/coder) (se
 
 ## 🚀 Quick Start
 
+### ⚡ Important: Run Initialization Script
+
+**Always run `./scripts/init-project.sh` after cloning!** This script:
+- ✅ Customizes the template with your project details
+- ✅ Runs `claude-flow init --sparc` to set up AI multi-agent framework
+- ✅ Configures Git with your information
+- ✅ Creates initial commit
+- ✅ Prepares your development environment
+
 ### Use as Template
 
 ```bash
@@ -20,18 +29,23 @@ Minimal starter template integrating [Coder](https://github.com/coder/coder) (se
 # Or via CLI:
 gh repo create my-project --template iaminawe/claudeflow-coder-starter
 
-# Clone and initialize
+# Clone and initialize (REQUIRED!)
 git clone https://github.com/your-username/my-project
 cd my-project
-./scripts/init-project.sh  # Customizes project + runs claude-flow init --sparc
+./scripts/init-project.sh  # ← Don't skip this step!
 ```
 
-### Direct Setup
+### Direct Setup (Without Template)
 
 ```bash
 # Clone and deploy
 git clone https://github.com/iaminawe/claudeflow-coder-starter
 cd claudeflow-coder-starter
+
+# Run initialization (customizes project and sets up SPARC)
+./scripts/init-project.sh  # ← Essential for claude-flow setup!
+
+# Start Coder server
 docker compose up -d
 
 # Access Coder UI at http://localhost:7080
@@ -77,6 +91,9 @@ curl -fsSL https://coder.com/install.sh | sh
 ### Workspace Commands
 
 ```bash
+# IMPORTANT: If you haven't run init-project.sh yet, run it first!
+# ./scripts/init-project.sh
+
 # Create workspace from template
 coder templates create claude-flow template/
 coder create my-workspace --template=claude-flow
