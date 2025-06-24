@@ -1,0 +1,42 @@
+# Override configuration for local Coder development
+# This file extends the main docker-compose.yml with development-specific settings
+
+version: "3.8"
+
+services:
+  coder:
+    environment:
+      # Development environment variables
+      - CODER_HTTP_ADDRESS=0.0.0.0:7080
+      - CODER_ACCESS_URL=http://localhost:7080
+      - CODER_WILDCARD_ACCESS_URL=*.localhost:7080
+      
+      # Enable development mode features
+      - CODER_DANGEROUS_ALLOW_PATH_APP_SHARING=true
+      - CODER_DANGEROUS_ALLOW_PATH_APP_SITE_OWNER_ACCESS=true
+      
+      # Logging
+      - CODER_VERBOSE=true
+      - CODER_LOG_HUMAN=/dev/stderr
+      
+    volumes:
+      # Mount template directory for easy development
+      - ./template:/home/coder/templates/claudeflow-starter:ro
+      
+      # Persist Coder data
+      - coder_data:/home/coder/.config/coderv2
+      
+    ports:
+      # Additional ports for development
+      - "7081:7081"  # Coder tunnel port
+      
+    # Development resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+
+volumes:
+  coder_data:
+    driver: local

@@ -1,0 +1,81 @@
+# Coder Workspace Configuration Template
+# This file defines common workspace settings that can be imported into templates
+
+workspace:
+  # Default resource allocation
+  resources:
+    cpu: 2
+    memory: "4GB"
+    disk: "20GB"
+    
+  # Network configuration
+  network:
+    ports:
+      - name: "dev-server"
+        port: 3000
+        public: true
+      - name: "preview"
+        port: 3001
+        public: false
+      - name: "vite"
+        port: 5173
+        public: true
+      - name: "webpack"
+        port: 8080
+        public: false
+        
+  # Environment setup
+  environment:
+    shell: "/bin/zsh"
+    editor: "code-server"
+    
+  # Pre-installed extensions for code-server
+  extensions:
+    - "ms-vscode.vscode-typescript-next"
+    - "esbenp.prettier-vscode"
+    - "dbaeumer.vscode-eslint"
+    - "bradlc.vscode-tailwindcss"
+    - "ms-python.python"
+    - "ms-vscode.vscode-json"
+    - "formulahendry.auto-rename-tag"
+    - "christian-kohler.path-intellisense"
+    - "ms-vscode.vscode-jest"
+    - "github.copilot"
+    - "ms-vscode.hexeditor"
+    - "redhat.vscode-yaml"
+    - "ms-vscode.vscode-docker"
+    
+  # Startup commands
+  startup:
+    - "npm install"
+    - "echo 'Workspace ready! Remember to run: claude auth login'"
+    
+  # Git configuration
+  git:
+    clone_url: ""  # Set this in your template variables
+    branch: "main"
+    
+  # Development tools
+  tools:
+    ai:
+      - "@anthropic-ai/claude-code"
+      - "@ruvnet/claude-flow"
+    typescript:
+      - "typescript"
+      - "ts-node"
+      - "tsx"
+    bundlers:
+      - "vite"
+      - "webpack"
+      - "esbuild"
+    testing:
+      - "jest"
+      - "vitest"
+      - "playwright"
+    linting:
+      - "eslint"
+      - "prettier"
+    package_managers:
+      - "npm"
+      - "yarn"
+      - "pnpm"
