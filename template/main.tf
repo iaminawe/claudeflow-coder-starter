@@ -97,9 +97,15 @@ resource "coder_agent" "main" {
       fi
     fi
 
-    # Initialize claude-flow with SPARC (if not already done)
+    # Install and initialize claude-flow with SPARC (if not already done)
+    if ! command -v claude-flow &> /dev/null; then
+      echo "📦 Installing claude-flow..."
+      npm install -g @ruvnet/claude-flow || npx @ruvnet/claude-flow@latest --version
+    fi
+    
     if [ ! -f ~/.claude-flow/config.json ]; then
-      claude-flow init --sparc
+      echo "🤖 Initializing claude-flow with SPARC framework..."
+      npx claude-flow@latest init --sparc || claude-flow init --sparc
     fi
 
     # Display authentication reminder
