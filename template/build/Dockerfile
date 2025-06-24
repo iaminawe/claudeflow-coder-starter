@@ -28,9 +28,9 @@ RUN npm config set registry https://registry.npmjs.org/ && \
     echo "Checking claude-code installation..." && \
     npm list -g --depth=0 | grep claude || echo "Claude package check complete"
 
-# Create user
+# Create user with home directory
 ARG USER=coder
-RUN useradd --groups sudo --no-create-home --shell /bin/bash ${USER} \
+RUN useradd --groups sudo --create-home --shell /bin/bash ${USER} \
     && echo "${USER} ALL=(ALL) NOPASSWD:ALL" >/etc/sudoers.d/${USER} \
     && chmod 0440 /etc/sudoers.d/${USER}
 
@@ -85,12 +85,13 @@ RUN npm install -g \
 # Switch back to user for aliases
 USER ${USER}
 
-# Set up shell aliases
-RUN echo 'alias claude="claude"' >> ~/.bashrc \
-    && echo 'alias c="claude"' >> ~/.bashrc \
-    && echo 'alias cf="claude-flow"' >> ~/.bashrc \
-    && echo 'alias cf-swarm="claude-flow swarm --parallel"' >> ~/.bashrc \
-    && echo 'claude() { if [ "$1" = "go" ]; then shift; command claude --dangerously-skip-permissions "$@"; elif [ "$1" = "continue" ]; then shift; command claude --continue --dangerously-skip-permissions "$@"; else command claude "$@"; fi; }' >> ~/.bashrc
+# Set up shell aliases for the user
+RUN echo 'alias claude="claude"' >> /home/${USER}/.bashrc \
+    && echo 'alias c="claude"' >> /home/${USER}/.bashrc \
+    && echo 'alias cf="claude-flow"' >> /home/${USER}/.bashrc \
+    && echo 'alias cf-swarm="claude-flow swarm --parallel"' >> /home/${USER}/.bashrc \
+    && echo 'claude() { if [ "$1" = "go" ]; then shift; command claude --dangerously-skip-permissions "$@"; elif [ "$1" = "continue" ]; then shift; command claude --continue --dangerously-skip-permissions "$@"; else command claude "$@"; fi; }' >> /home/${USER}/.bashrc \
+    && chown ${USER}:${USER} /home/${USER}/.bashrc
 
 # VS Code extensions will be installed on first startup via Coder's built-in mechanism
 # This avoids Docker build issues while still providing the same functionality
