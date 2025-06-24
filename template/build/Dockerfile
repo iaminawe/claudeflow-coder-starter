@@ -19,8 +19,15 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 
 # Python is available via system packages if needed
 
-# Install AI tools as root before creating user
-RUN npm install -g @anthropic-ai/claude-code @ruvnet/claude-flow
+# Install AI tools as root before creating user (with debugging)
+RUN npm config set registry https://registry.npmjs.org/ && \
+    npm cache clean --force && \
+    echo "Installing claude-flow..." && \
+    npm install -g @ruvnet/claude-flow && \
+    echo "Installing claude-code..." && \
+    (npm install -g @anthropic-ai/claude-code || echo "claude-code install failed, continuing...") && \
+    echo "Checking installations..." && \
+    npm list -g --depth=0 | grep -E "(claude|flow)" || echo "No AI packages found"
 
 # Create user
 ARG USER=coder
