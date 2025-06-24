@@ -123,13 +123,13 @@ resource "coder_agent" "main" {
     echo "2. claude-flow (open-source multi-agent tool):"
     echo "   claude-flow   - Multi-agent orchestration"
     echo "   cf            - Short alias for 'claude-flow'"
-    echo "   swarm         - Parallel multi-agent execution"
+    echo "   cf-swarm      - Parallel multi-agent execution"
     echo ""
     echo "💡 Examples:"
     echo "  claude 'explain this function'          # Direct Claude assistance"
     echo "  claude go 'analyze my code'            # Claude with permission bypass"
     echo "  claude-flow architect 'design API'     # Single agent mode"
-    echo "  swarm 'build complete feature'         # Multi-agent parallel"
+    echo "  cf-swarm 'build complete feature'      # Multi-agent parallel"
     echo "================================================="
   EOT
 

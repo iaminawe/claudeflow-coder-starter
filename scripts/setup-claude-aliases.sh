@@ -23,6 +23,8 @@ add_claude_aliases() {
     
     # Add basic aliases
     echo 'alias c="claude"' >> "$shell_config"
+    echo 'alias cf="claude-flow"' >> "$shell_config"
+    echo 'alias cf-swarm="claude-flow swarm --parallel"' >> "$shell_config"
     
     # Add function for go and continue
     cat >> "$shell_config" << 'EOF'
@@ -84,13 +86,17 @@ echo "   source ~/.bashrc   # for bash"
 echo "   source ~/.zshrc    # for zsh"
 echo ""
 echo "📋 Available aliases:"
-echo "   claude        - Standard Claude CLI"
+echo "   claude        - Standard Claude CLI (Anthropic)"
 echo "   c             - Short alias for claude"
 echo "   claude go     - claude --dangerously-skip-permissions"
 echo "   claude continue - claude --continue --dangerously-skip-permissions"
+echo "   cf            - claude-flow (multi-agent orchestration)"
+echo "   cf-swarm      - claude-flow swarm --parallel"
 echo ""
 echo "💡 Examples:"
-echo "   claude \"analyze my code\""
-echo "   c \"debug this function\""
-echo "   claude go \"review my project\"     # bypass permissions"
-echo "   claude continue \"fix the issue\"   # continue conversation + bypass permissions"
+echo "   claude \"analyze my code\"              # Direct Claude assistance"
+echo "   c \"debug this function\"               # Short form"
+echo "   claude go \"review my project\"         # Bypass permissions"
+echo "   claude continue \"fix the issue\"       # Continue + bypass"
+echo "   cf architect \"design API\"             # Single agent mode"
+echo "   cf-swarm \"build complete feature\"     # Multi-agent parallel"

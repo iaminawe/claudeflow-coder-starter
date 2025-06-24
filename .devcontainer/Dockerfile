@@ -57,11 +57,11 @@ RUN npm install -g \
 # Set up Claude aliases for convenient usage
 RUN echo 'alias c="claude"' >> ~/.bashrc \
     && echo 'alias cf="claude-flow"' >> ~/.bashrc \
-    && echo 'alias swarm="claude-flow swarm --parallel"' >> ~/.bashrc \
+    && echo 'alias cf-swarm="claude-flow swarm --parallel"' >> ~/.bashrc \
     && echo 'claude() { if [ "$1" = "go" ]; then shift; command claude --dangerously-skip-permissions "$@"; elif [ "$1" = "continue" ]; then shift; command claude --continue --dangerously-skip-permissions "$@"; else command claude "$@"; fi; }' >> ~/.bashrc \
     && echo 'alias c="claude"' >> ~/.zshrc \
     && echo 'alias cf="claude-flow"' >> ~/.zshrc \
-    && echo 'alias swarm="claude-flow swarm --parallel"' >> ~/.zshrc \
+    && echo 'alias cf-swarm="claude-flow swarm --parallel"' >> ~/.zshrc \
     && echo 'claude() { if [ "$1" = "go" ]; then shift; command claude --dangerously-skip-permissions "$@"; elif [ "$1" = "continue" ]; then shift; command claude --continue --dangerously-skip-permissions "$@"; else command claude "$@"; fi; }' >> ~/.zshrc
 
 # Set PATH environment variable for all processes

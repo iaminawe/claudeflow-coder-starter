@@ -115,7 +115,7 @@ claude go "review restricted files"  # bypass permissions
 claude continue "implement the fix"  # continue + bypass permissions
 claude-flow --version
 cf --help                           # alias
-swarm "build a React app"           # parallel execution
+cf-swarm "build a React app"        # parallel execution
 
 # TypeScript/JavaScript Development
 tsc --version                       # TypeScript compiler
@@ -175,7 +175,7 @@ npm list -g @ruvnet/claude-flow
 # Test aliases
 type claude
 type c
-alias | grep -E "(claude|cf|swarm)"
+alias | grep -E "(claude|cf)"
 ```
 
 ## Troubleshooting

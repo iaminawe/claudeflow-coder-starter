@@ -61,7 +61,7 @@ docker compose up -d
   - Special modes: `claude go` and `claude continue` for permission bypass
 - **claude-flow**: Open-source multi-agent orchestration with SPARC framework
   - Use: `claude-flow <mode> "prompt"` or `cf <mode> "prompt"`
-  - Multi-agent: `swarm "complex task"`
+  - Multi-agent: `cf-swarm "complex task"`
 
 ### Development Tools
 - **Languages**: TypeScript, Node.js 20, Python 3
@@ -131,7 +131,7 @@ claude continue "implement the fix"  # Same as: claude --continue --dangerously-
 # claude-flow (separate tool) - Multi-agent orchestration
 claude-flow architect "design microservice"   # Single agent mode
 cf architect "design microservice"            # Short alias
-swarm "build REST API with tests"            # Multi-agent parallel execution
+cf-swarm "build REST API with tests"         # Multi-agent parallel execution
 ```
 
 ### Example Workflow
@@ -143,7 +143,7 @@ claude "write unit tests for my UserService class"
 c "review this React component for best practices"
 
 # Multi-agent orchestration (claude-flow)
-claude-flow swarm --parallel "Create e-commerce cart with:
+cf-swarm "Create e-commerce cart with:
 - React components
 - API endpoints
 - Database schema

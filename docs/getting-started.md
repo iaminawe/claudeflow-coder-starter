@@ -146,7 +146,7 @@ claude "generate tests for my API"
 
 # claude-flow (multi-agent orchestration)
 cf --help
-swarm "create a React component with tests"
+cf-swarm "create a React component with tests"
 
 # Combined workflow
 claude "analyze my codebase" && cf architect "suggest improvements"
@@ -159,7 +159,7 @@ c                # claude (short alias)
 claude go        # claude --dangerously-skip-permissions
 claude continue  # claude --continue --dangerously-skip-permissions
 cf               # claude-flow
-swarm            # claude-flow swarm --parallel
+cf-swarm         # claude-flow swarm --parallel
 ```
 
 ### 4. Convenient Claude Aliases
