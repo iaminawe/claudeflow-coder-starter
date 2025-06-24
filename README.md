@@ -1,6 +1,8 @@
 # ClaudeFlow + Coder Starter
 
-Minimal starter template integrating [Coder](https://github.com/coder/coder) (self-hosted cloud development) with [claude-flow](https://github.com/ruvnet/claude-code-flow) (AI multi-agent orchestration) and [claude-code](https://www.npmjs.com/package/@anthropic-ai/claude-code) CLI.
+Minimal starter template integrating [Coder](https://github.com/coder/coder) (self-hosted cloud development) with two AI tools:
+- **[claude](https://www.npmjs.com/package/@anthropic-ai/claude-code)** - Anthropic's official Claude CLI for direct AI assistance
+- **[claude-flow](https://github.com/ruvnet/claude-code-flow)** - Open-source multi-agent AI orchestration framework
 
 ## 🤔 Why Use These Together?
 
@@ -53,10 +55,13 @@ docker compose up -d
 
 ## ✨ Features
 
-### AI Development
-- **claude-code CLI**: Direct Claude AI assistance (requires subscription)
+### AI Development Tools (Two Separate Tools)
+- **claude (Claude Code CLI)**: Direct Claude AI assistance from Anthropic (requires subscription)
+  - Use: `claude "your prompt"` or `c "your prompt"`
+  - Special modes: `claude go` and `claude continue` for permission bypass
 - **claude-flow**: Open-source multi-agent orchestration with SPARC framework
-- **Convenient Aliases**: `c`, `cf`, `swarm`, `claude go`, `claude continue`
+  - Use: `claude-flow <mode> "prompt"` or `cf <mode> "prompt"`
+  - Multi-agent: `swarm "complex task"`
 
 ### Development Tools
 - **Languages**: TypeScript, Node.js 20, Python 3
@@ -117,30 +122,36 @@ coder port-forward my-workspace --tcp 3000:3000
 ### AI Commands
 
 ```bash
-# Claude Code (Anthropic's CLI)
-claude "analyze my codebase"
-c "debug this function"              # short alias
-claude go "review files"             # bypass permissions
-claude continue "implement the fix"  # continue + bypass
+# Claude Code (Anthropic's CLI) - Direct AI assistance
+claude "analyze my codebase"         # Direct Claude interaction
+c "debug this function"              # Short alias for 'claude'
+claude go "review files"             # Same as: claude --dangerously-skip-permissions
+claude continue "implement the fix"  # Same as: claude --continue --dangerously-skip-permissions
 
-# claude-flow (multi-agent orchestration)
-cf architect "design microservice"
-swarm "build REST API with tests"   # parallel agents
+# claude-flow (separate tool) - Multi-agent orchestration
+claude-flow architect "design microservice"   # Single agent mode
+cf architect "design microservice"            # Short alias
+swarm "build REST API with tests"            # Multi-agent parallel execution
 ```
 
 ### Example Workflow
 
 ```bash
-# Complex task with multiple agents
-swarm "Create e-commerce cart with:
+# Direct Claude assistance (single AI)
+claude "explain this complex algorithm"
+claude "write unit tests for my UserService class"
+c "review this React component for best practices"
+
+# Multi-agent orchestration (claude-flow)
+claude-flow swarm --parallel "Create e-commerce cart with:
 - React components
 - API endpoints
 - Database schema
 - Unit tests
 - Documentation"
 
-# Combined AI tools
-c "find bugs" && cf security "fix vulnerabilities"
+# Combining both tools
+claude "find bugs in my code" && claude-flow security "implement security fixes"
 ```
 
 ## 📚 Documentation
