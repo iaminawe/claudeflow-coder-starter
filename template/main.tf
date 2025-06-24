@@ -112,12 +112,12 @@ resource "coder_agent" "main" {
     # Install and initialize claude-flow with SPARC (if not already done)
     if ! command -v claude-flow &> /dev/null; then
       echo "📦 Installing claude-flow..."
-      npm install -g @ruvnet/claude-flow || npx @ruvnet/claude-flow@latest --version
+      npm install -g claude-flow || echo "Global install failed, will use npx"
     fi
     
     if [ ! -f ~/.claude-flow/config.json ]; then
       echo "🤖 Initializing claude-flow with SPARC framework..."
-      npx claude-flow@latest init --sparc || claude-flow init --sparc
+      npx claude-flow@latest init --sparc
     fi
 
     # Run initialization on first run

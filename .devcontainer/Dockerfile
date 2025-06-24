@@ -26,7 +26,7 @@ RUN mkdir -p ~/.npm-global && \
 RUN npm install -g \
     npm@latest \
     @anthropic-ai/claude-code \
-    @ruvnet/claude-flow \
+    claude-flow \
     typescript \
     ts-node \
     tsx \

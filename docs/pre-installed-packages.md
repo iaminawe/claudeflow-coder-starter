@@ -5,7 +5,7 @@
 | Package | Purpose | Global Install |
 |---------|---------|----------------|
 | `@anthropic-ai/claude-code` | Anthropic's official Claude CLI | ✅ Yes |
-| `@ruvnet/claude-flow` | Multi-agent orchestration library | ✅ Yes |
+| `claude-flow` | Multi-agent orchestration library | ✅ Yes |
 
 ## TypeScript/JavaScript Development Stack
 
