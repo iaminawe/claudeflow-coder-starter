@@ -83,6 +83,18 @@ resource "coder_agent" "main" {
     if [ -n "${data.coder_parameter.git_repo.value}" ]; then
       git clone "${data.coder_parameter.git_repo.value}" ~/project
       cd ~/project
+      
+      # Install npm dependencies if package.json exists
+      if [ -f "package.json" ]; then
+        echo "📦 Installing npm dependencies..."
+        npm install
+      fi
+    else
+      # If no repo specified, check current directory for package.json
+      if [ -f "package.json" ]; then
+        echo "📦 Installing npm dependencies..."
+        npm install
+      fi
     fi
 
     # Initialize claude-flow with SPARC (if not already done)
