@@ -79,9 +79,21 @@ resource "coder_agent" "main" {
   startup_script = <<-EOT
     set -e
 
+    # Check if this is first run
+    FIRST_RUN_FLAG="$HOME/.coder-workspace-initialized"
+    IS_FIRST_RUN=false
+    
+    if [ ! -f "$FIRST_RUN_FLAG" ]; then
+      IS_FIRST_RUN=true
+      echo "🚀 First workspace startup detected..."
+      touch "$FIRST_RUN_FLAG"
+    fi
+
     # Clone repository if provided
     if [ -n "${data.coder_parameter.git_repo.value}" ]; then
-      git clone "${data.coder_parameter.git_repo.value}" ~/project
+      if [ ! -d "~/project" ]; then
+        git clone "${data.coder_parameter.git_repo.value}" ~/project
+      fi
       cd ~/project
       
       # Install npm dependencies if package.json exists
@@ -106,6 +118,72 @@ resource "coder_agent" "main" {
     if [ ! -f ~/.claude-flow/config.json ]; then
       echo "🤖 Initializing claude-flow with SPARC framework..."
       npx claude-flow@latest init --sparc || claude-flow init --sparc
+    fi
+
+    # Run initialization on first run
+    if [ "$IS_FIRST_RUN" = true ]; then
+      echo "🔧 Running first-time workspace setup..."
+      
+      # Create default project structure if no repo provided
+      if [ -z "${data.coder_parameter.git_repo.value}" ]; then
+        echo "📁 Setting up default project structure..."
+        mkdir -p ~/workspace
+        cd ~/workspace
+        
+        # Initialize git if not already done
+        if [ ! -d ".git" ]; then
+          git init
+          git config --global init.defaultBranch main
+        fi
+        
+        # Create basic project files
+        echo "# My AI Development Project" > README.md
+        echo "node_modules/" > .gitignore
+        echo ".env" >> .gitignore
+        echo "*.log" >> .gitignore
+        
+        # Create package.json
+        cat > package.json << 'PACKAGE_EOF'
+{
+  "name": "my-ai-project",
+  "version": "1.0.0",
+  "description": "AI-powered development project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["ai", "claude", "development"],
+  "author": "",
+  "license": "MIT"
+}
+PACKAGE_EOF
+        
+        # Create basic index.js
+        cat > index.js << 'JS_EOF'
+// Welcome to your AI-powered development environment!
+// You have access to both Claude and claude-flow tools.
+
+console.log('🚀 AI Development Environment Ready!');
+console.log('');
+console.log('Available tools:');
+console.log('  claude          - Direct AI assistance (requires auth)');
+console.log('  c               - Short alias for claude');
+console.log('  claude go       - Claude with permission bypass');
+console.log('  claude continue - Continue conversation with bypass');
+console.log('  claude-flow     - Multi-agent orchestration');
+console.log('  cf              - Short alias for claude-flow');
+console.log('  cf-swarm        - Parallel multi-agent execution');
+console.log('');
+console.log('Get started:');
+console.log('  1. Run: claude auth login');
+console.log('  2. Try: claude "help me build a web app"');
+console.log('  3. Or: cf-swarm "create a full-stack project"');
+JS_EOF
+
+        echo "✅ Default project structure created at ~/workspace"
+      fi
     fi
 
     # Display authentication reminder
