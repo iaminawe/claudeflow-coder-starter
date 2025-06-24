@@ -5,12 +5,14 @@ services:
     image: ghcr.io/coder/coder:latest
     container_name: coder
     ports:
-      - "7080:7080"
+      - "${CODER_PORT:-7080}:7080"
+    env_file:
+      - .env
     environment:
-      - CODER_ACCESS_URL=http://localhost:7080
-      - CODER_HTTP_ADDRESS=0.0.0.0:7080
-      - CODER_WILDCARD_ACCESS_URL=*.localhost:7080
-      - CODER_PG_CONNECTION_URL=postgresql://coder:password@postgres:5432/coder?sslmode=disable
+      - CODER_ACCESS_URL=${CODER_ACCESS_URL:-http://localhost:7080}
+      - CODER_HTTP_ADDRESS=${CODER_HTTP_ADDRESS:-0.0.0.0:7080}
+      - CODER_WILDCARD_ACCESS_URL=${CODER_WILDCARD_ACCESS_URL:-*.localhost:7080}
+      - CODER_PG_CONNECTION_URL=postgresql://${POSTGRES_USER:-coder}:${POSTGRES_PASSWORD:-coder}@postgres:5432/${POSTGRES_DB:-coder}?sslmode=disable
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./data:/home/coder/.config/coderv2
@@ -22,10 +24,12 @@ services:
   postgres:
     image: postgres:15
     container_name: coder-postgres
+    env_file:
+      - .env
     environment:
-      - POSTGRES_USER=coder
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=coder
+      - POSTGRES_USER=${POSTGRES_USER:-coder}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-coder}
+      - POSTGRES_DB=${POSTGRES_DB:-coder}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:

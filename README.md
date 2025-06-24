@@ -86,6 +86,17 @@ claude auth login  # Browser authentication required
 curl -fsSL https://coder.com/install.sh | sh
 ```
 
+### Environment Configuration
+
+The template includes `.env.example` with all available configuration options:
+
+- **Coder Settings**: Server URL, ports, database connection
+- **API Keys**: Claude, OpenAI, GitHub tokens (optional)
+- **Workspace Resources**: CPU, memory, disk allocations
+- **Development Ports**: Vite, Next.js, API server ports
+
+The init script automatically creates `.env` from `.env.example`.
+
 ## 💻 Usage
 
 ### Workspace Commands

@@ -63,6 +63,22 @@ if [ -f "docker-compose.yml" ]; then
     rm docker-compose.yml.bak
 fi
 
+# Create .env file if it doesn't exist
+if [ ! -f ".env" ] && [ -f ".env.example" ]; then
+    echo "🔐 Creating .env file from template..."
+    cp .env.example .env
+    # Update .env with user information
+    if [ -n "$GITHUB_USER" ]; then
+        echo "GIT_USER_NAME=$GITHUB_USER" >> .env
+    fi
+    if [ -n "$USER_EMAIL" ]; then
+        echo "GIT_USER_EMAIL=$USER_EMAIL" >> .env
+    fi
+    if [ -n "$PROJECT_NAME" ]; then
+        echo "TF_VAR_project_name=$PROJECT_NAME" >> .env
+    fi
+fi
+
 # Initialize git if not already initialized
 if [ ! -d ".git" ]; then
     echo "🔄 Initializing git repository..."
