@@ -85,8 +85,9 @@ RUN npm install -g \
 # Switch back to user for aliases
 USER ${USER}
 
-# Set up shell aliases for the user
-RUN echo 'alias claude="claude"' >> /home/${USER}/.bashrc \
+# Set up shell aliases and PATH for the user
+RUN echo 'export PATH="$HOME/node_modules/.bin:$PATH"' >> /home/${USER}/.bashrc \
+    && echo 'alias claude="claude"' >> /home/${USER}/.bashrc \
     && echo 'alias c="claude"' >> /home/${USER}/.bashrc \
     && echo 'alias cf="claude-flow"' >> /home/${USER}/.bashrc \
     && echo 'alias cf-swarm="claude-flow swarm --parallel"' >> /home/${USER}/.bashrc \

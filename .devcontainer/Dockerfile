@@ -22,11 +22,10 @@ RUN mkdir -p ~/.npm-global && \
     echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc && \
     echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.profile
 
-# Install essential global packages
+# Install essential global packages (claude-code only, claude-flow will be local)
 RUN npm install -g \
     npm@latest \
     @anthropic-ai/claude-code \
-    claude-flow \
     typescript \
     ts-node \
     tsx \

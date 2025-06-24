@@ -109,15 +109,29 @@ resource "coder_agent" "main" {
       fi
     fi
 
-    # Install and initialize claude-flow with SPARC (if not already done)
-    if ! command -v claude-flow &> /dev/null; then
-      echo "📦 Installing claude-flow..."
-      npm install -g claude-flow || echo "Global install failed, will use npx"
-    fi
-    
+    # Install and initialize claude-flow locally (avoids permission issues)
     if [ ! -f ~/.claude-flow/config.json ]; then
+      echo "📦 Installing claude-flow locally in user directory..."
+      cd ~
+      
+      # Create package.json if it doesn't exist
+      if [ ! -f package.json ]; then
+        npm init -y --quiet > /dev/null 2>&1
+      fi
+      
+      # Install claude-flow as a local dependency
+      npm install claude-flow --save-dev
+      
+      # Add local node_modules/.bin to PATH for this session
+      export PATH="$HOME/node_modules/.bin:$PATH"
+      
+      # Add to .bashrc for future sessions
+      if ! grep -q "node_modules/.bin" ~/.bashrc; then
+        echo 'export PATH="$HOME/node_modules/.bin:$PATH"' >> ~/.bashrc
+      fi
+      
       echo "🤖 Initializing claude-flow with SPARC framework..."
-      npx claude-flow@latest init --sparc
+      claude-flow init --sparc
     fi
 
     # Run initialization on first run
