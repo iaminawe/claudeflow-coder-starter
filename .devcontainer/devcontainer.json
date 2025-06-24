@@ -44,6 +44,6 @@
     }
   },
   "forwardPorts": [3000, 3001, 5173, 8080],
-  "postCreateCommand": "npm install && echo 'DevContainer ready! Run: claude auth login'",
+  "postCreateCommand": "export PATH=/home/vscode/.npm-global/bin:$PATH && npm install && bash .devcontainer/verify-setup.sh",
   "remoteUser": "vscode"
 }

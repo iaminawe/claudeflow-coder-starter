@@ -19,7 +19,8 @@ USER vscode
 RUN mkdir -p ~/.npm-global && \
     npm config set prefix '~/.npm-global' && \
     echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc && \
-    echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
+    echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc && \
+    echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.profile
 
 # Install essential global packages
 RUN npm install -g \
@@ -62,5 +63,8 @@ RUN echo 'alias c="claude"' >> ~/.bashrc \
     && echo 'alias cf="claude-flow"' >> ~/.zshrc \
     && echo 'alias swarm="claude-flow swarm --parallel"' >> ~/.zshrc \
     && echo 'claude() { if [ "$1" = "go" ]; then shift; command claude --dangerously-skip-permissions "$@"; elif [ "$1" = "continue" ]; then shift; command claude --continue --dangerously-skip-permissions "$@"; else command claude "$@"; fi; }' >> ~/.zshrc
+
+# Set PATH environment variable for all processes
+ENV PATH="/home/vscode/.npm-global/bin:${PATH}"
 
 WORKDIR /workspaces/claudeflow-starter
