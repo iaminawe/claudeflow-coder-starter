@@ -19,6 +19,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 
 # Python is available via system packages if needed
 
+# Install AI tools as root before creating user
+RUN npm install -g @anthropic-ai/claude-code @ruvnet/claude-flow
+
 # Create user
 ARG USER=coder
 RUN useradd --groups sudo --no-create-home --shell /bin/bash ${USER} \
@@ -28,10 +31,8 @@ RUN useradd --groups sudo --no-create-home --shell /bin/bash ${USER} \
 USER ${USER}
 WORKDIR /home/${USER}
 
-# Install AI tools
-RUN npm install -g @anthropic-ai/claude-code @ruvnet/claude-flow
-
-# Install TypeScript/JavaScript development tools
+# Install TypeScript/JavaScript development tools as root
+USER root
 RUN npm install -g \
     # Core language tools
     typescript \
@@ -74,6 +75,9 @@ RUN npm install -g \
     dotenv-cli \
     rimraf \
     cross-env
+
+# Switch back to user for aliases
+USER ${USER}
 
 # Set up shell aliases
 RUN echo 'alias claude="claude"' >> ~/.bashrc \
