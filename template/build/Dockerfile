@@ -93,20 +93,5 @@ RUN echo 'alias claude="claude"' >> ~/.bashrc \
     && echo 'alias cf-swarm="claude-flow swarm --parallel"' >> ~/.bashrc \
     && echo 'claude() { if [ "$1" = "go" ]; then shift; command claude --dangerously-skip-permissions "$@"; elif [ "$1" = "continue" ]; then shift; command claude --continue --dangerously-skip-permissions "$@"; else command claude "$@"; fi; }' >> ~/.bashrc
 
-# Pre-install VS Code extensions for TypeScript/JavaScript development
-RUN code-server --install-extension ms-vscode.vscode-typescript-next \
-    && code-server --install-extension esbenp.prettier-vscode \
-    && code-server --install-extension dbaeumer.vscode-eslint \
-    && code-server --install-extension bradlc.vscode-tailwindcss \
-    && code-server --install-extension ms-python.python \
-    && code-server --install-extension ms-vscode.vscode-json \
-    && code-server --install-extension formulahendry.auto-rename-tag \
-    && code-server --install-extension christian-kohler.path-intellisense \
-    && code-server --install-extension ms-vscode.vscode-jest \
-    && code-server --install-extension orta.vscode-jest \
-    && code-server --install-extension ms-playwright.playwright \
-    && code-server --install-extension ms-vscode.vscode-node-azure-pack \
-    && code-server --install-extension github.copilot \
-    && code-server --install-extension ms-vscode.hexeditor \
-    && code-server --install-extension redhat.vscode-yaml \
-    && code-server --install-extension ms-vscode.vscode-docker
+# VS Code extensions will be installed on first startup via Coder's built-in mechanism
+# This avoids Docker build issues while still providing the same functionality
