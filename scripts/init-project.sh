@@ -84,6 +84,16 @@ git commit -m "Initial commit: $PROJECT_NAME
 
 Generated from claudeflow-starter template"
 
+# Initialize claude-flow with SPARC framework
+echo "🤖 Initializing ClaudeFlow with SPARC framework..."
+if command -v claude-flow &> /dev/null; then
+    claude-flow init --sparc
+    echo "✨ SPARC framework initialized!"
+else
+    echo "⚠️  claude-flow not found. Install it first with: npm install -g @ruvnet/claude-flow"
+    echo "   Then run: claude-flow init --sparc"
+fi
+
 # Remove this init script
 echo "🧹 Cleaning up..."
 rm -f scripts/init-project.sh
