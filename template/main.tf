@@ -74,9 +74,8 @@ data "coder_parameter" "git_repo" {
 }
 
 resource "coder_agent" "main" {
-  arch                   = data.coder_provisioner.me.arch
-  os                     = "linux"
-  startup_script_timeout = 180
+  arch = data.coder_provisioner.me.arch
+  os   = "linux"
   startup_script = <<-EOT
     set -e
 
