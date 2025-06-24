@@ -1,0 +1,17 @@
+{
+  "name": "claudeflow-coder-starter",
+  "version": "1.0.0",
+  "description": "Minimal starter template for integrating claude-flow with Coder development environments",
+  "keywords": ["coder", "claude-flow", "ai", "development", "workspace"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/claudeflow-starter"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "docker compose up -d",
+    "stop": "docker compose down",
+    "logs": "docker compose logs -f",
+    "clean": "docker compose down -v && docker system prune -f"
+  }
+}
