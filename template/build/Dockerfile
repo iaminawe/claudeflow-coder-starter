@@ -17,8 +17,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs
 
-# Install Python packages
-RUN pip3 install --upgrade pip setuptools wheel
+# Python is available via system packages if needed
 
 # Create user
 ARG USER=coder
